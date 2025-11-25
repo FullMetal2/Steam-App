@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import session from "express-session";
 import passport from "passport";
+import cookieParser from "cookie-parser";
 import connectDB from "./config/DB.js";
 import steamRoute from "./routes/steam/OauthSteam.js";
 import authPlayTrackRoute from "./routes/playtrack/authPlayTrack.js";
@@ -26,6 +27,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(
   session({
@@ -46,8 +48,8 @@ app.get("/ping", (req, res) => {
 app.use("/api/playtrack/auth", authPlayTrackRoute);
 app.use("/api/playtrack/forgotPassword", forgotPasswordPlaytrack);
 app.use("/api/playtrack/resetPassword", resetPasswordPlaytrack);
-app.use("/auth/steam", steamRoute);
 app.use("/api/auth/steam", steamRoute);
+app.use("/auth/steam", steamRoute);
 app.use("/api/steam/profil", steamProfilRoute);
 app.use("/api/steam/games", steamGamesRoute);
 app.use("/api/steam/friends", steamFriendsroute);

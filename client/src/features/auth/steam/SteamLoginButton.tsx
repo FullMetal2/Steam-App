@@ -1,6 +1,5 @@
 function SteamLoginButton() {
   const token = localStorage.getItem("token");
-  console.log(token);
 
   if (!token) {
     console.warn("⚠️ Aucun token trouvé, utilisateur non connecté");
@@ -8,6 +7,7 @@ function SteamLoginButton() {
 
   const linkSteam = () => {
     window.location.href = `http://localhost:5000/api/auth/steam?token=${token}`;
+    console.log(token);
   };
 
   return (

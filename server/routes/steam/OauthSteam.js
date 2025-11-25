@@ -12,15 +12,17 @@ const router = express.Router();
 // Démarrer le flux OAuth Steam
 router.get(
   "/",
+
   (req, res, next) => {
     const token = req.query.token;
-    req.session.playTrackToken = token;
-    if (!token) {
-      res.redirect("http://localhost:5173/home");
-    }
+    res.cookie("playtrackToken", token, {
+      httpOnly: true,
+      sameSite: "lax",
+    });
+
     next();
   },
-  passport.authenticate("steam", { failureRedirect: "/" })
+  passport.authenticate("steam")
 );
 
 router.get(
@@ -28,14 +30,27 @@ router.get(
   passport.authenticate("steam", { failureRedirect: "/" }),
   async (req, res) => {
     // req.user contient les infos Steam
-    const token = req.session.playTrackToken;
+
+    const token = req.cookies.playtrackToken;
+    if (!token) {
+      console.log("❌ Aucun token retrouvé dans le cookie !");
+      return res.status(400).json({ message: "Token manquant." });
+    }
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const steamUser = req.user._json;
-    await User.findByIdAndUpdate(decoded.userId, {
-      steamid: steamUser.steamid,
-      personaname: steamUser.personaname,
-      avatar: steamUser.avatar,
-    });
+    await User.findByIdAndUpdate(
+      decoded.userId,
+      {
+        steam: {
+          steamid: steamUser.steamid,
+          personaname: steamUser.personaname,
+          avatar: steamUser.avatar,
+        },
+      },
+      { new: true }
+    );
+    res.clearCookie("playtrackToken");
 
     // Tu peux soit :
     // 👉 le renvoyer dans le body

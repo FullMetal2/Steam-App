@@ -7,7 +7,7 @@ dotenv.config();
 passport.use(
   new SteamStrategy(
     {
-      returnURL: "http://localhost:5000/auth/steam/return",
+      returnURL: "http://localhost:5000/api/auth/steam/return",
       realm: "http://localhost:5000/",
       apiKey: process.env.STEAM_API_KEY,
     },

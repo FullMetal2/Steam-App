@@ -10,19 +10,19 @@ const handleLogout = () => {
 };
 
 export default function User() {
-  const user = useAuthSteam();
+  const userSteam = useAuthSteam();
   const { games } = GameUser();
 
-  if (!user) return <p>Chargement du profil...</p>;
+  if (!userSteam) return <p>Chargement du profil...</p>;
   return (
     <>
       <header>
         <div className="container">
           <SteamLoginButton />
-          {user && (
+          {userSteam && (
             <div>
-              <img src={user.avatar} alt={user.personaname} />
-              <h2>Bienvenue {user.personaname} 👋</h2>
+              <img src={userSteam.avatar} alt={userSteam.personaname} />
+              <h2>Bienvenue {userSteam.personaname} 👋</h2>
             </div>
           )}
 
