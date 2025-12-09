@@ -1,26 +1,17 @@
 import dotenv from "dotenv";
+import { FetchSteamProfil } from "../../services/steamService.js";
 
 dotenv.config();
 
 export const GetPlayerSummaries = async (req, res) => {
   try {
-    const key = process.env.STEAM_API_KEY;
-    const userSteamId = req.user.steam?.steamid;
+    const steamId = req.user.steam.steamid;
 
-    if (!userSteamId)
-      res.status(401).json({ message: "Utilisateur introuvable" });
+    const SteamProfil = await FetchSteamProfil(steamId);
 
-    const url =
-      "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" +
-      key +
-      "&steamid=" +
-      userSteamId;
-
-    const response = await fetch(url);
-    const data = await response.json();
-    res.status(200).json({ profil: data.response?.profil });
+    res.json({ user: SteamProfil });
   } catch (error) {
-    console.error("Erreur lors de la récupération du profil");
-    res.status(500).json({ message: "Erreur réseau" });
+      console.error("Erreur dans la récupération du profil :", error);
+      res.status(500).json({ message: "Erreur réseau" });
   }
-};
+}

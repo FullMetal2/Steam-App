@@ -11,6 +11,7 @@ import steamRoute from "./routes/steam/OauthSteam.js";
 import authPlayTrackRoute from "./routes/playtrack/authPlayTrack.js";
 import steamGamesRoute from "./routes/steam/steam.games.js";
 import steamProfilRoute from "./routes/steam/steam.profil.js";
+import playtrackProfilSteam from "./routes/playtrack/Playtrack.ProfilSteam.js";
 import steamFriendsroute from "./routes/steam/steam.friends.js";
 import forgotPasswordPlaytrack from "./routes/playtrack/forgotPassword.js";
 import resetPasswordPlaytrack from "./routes/playtrack/resetPassword.js";
@@ -48,6 +49,7 @@ app.get("/ping", (req, res) => {
 app.use("/api/playtrack/auth", authPlayTrackRoute);
 app.use("/api/playtrack/forgotPassword", forgotPasswordPlaytrack);
 app.use("/api/playtrack/resetPassword", resetPasswordPlaytrack);
+app.use("/api/playtrack/profil/steam", playtrackProfilSteam);
 app.use("/api/auth/steam", steamRoute);
 app.use("/auth/steam", steamRoute);
 app.use("/api/steam/profil", steamProfilRoute);
