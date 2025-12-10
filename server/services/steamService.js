@@ -41,3 +41,20 @@ export async function FetchOwnedGames(steamId) {
         console.error("Erreur lors de la récupération des jeux");
     }
 }
+
+export async function FetchRecentlyPlayedGmaes(steamId) {
+  try {
+    const key = process.env.STEAM_API_KEY;
+    const url = "http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + key + "&steamid=" + steamId + "&format=json";
+
+    const response = await fetch(url);
+    const data = await response.json();
+    const total_count = data?.response?.total_count || 0;
+    const games = data?.response?.games || [];
+    return { total_count, games };
+
+  } catch (error) {
+    console.error("Erreur steam = ", error);
+    console.error("Erreur lors de la récupération des jeux")
+  }
+}

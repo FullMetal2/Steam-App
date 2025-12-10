@@ -1,7 +1,4 @@
-import dotenv from "dotenv";
 import { FetchOwnedGames } from "../../services/steamService.js";
-
-dotenv.config();
 
 export const GetOwnedGames = async (req, res) => {
   try {

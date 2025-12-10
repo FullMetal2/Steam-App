@@ -1,6 +1,7 @@
 export interface SteamGame {
   appid: number;
   game_count: number;
+  total_count: number;
   name?: string;
   playtime_forever: number;
   playtime_2weeks?: number;

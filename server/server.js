@@ -10,6 +10,7 @@ import connectDB from "./config/DB.js";
 import steamRoute from "./routes/steam/OauthSteam.js";
 import authPlayTrackRoute from "./routes/playtrack/authPlayTrack.js";
 import steamGamesRoute from "./routes/steam/steam.games.js";
+import steamsummarizeuser from "./routes/steam/steam.summarize.user.js"
 import steamProfilRoute from "./routes/steam/steam.profil.js";
 import playtrackProfilSteam from "./routes/playtrack/Playtrack.ProfilSteam.js";
 import steamFriendsroute from "./routes/steam/steam.friends.js";
@@ -54,6 +55,7 @@ app.use("/api/auth/steam", steamRoute);
 app.use("/auth/steam", steamRoute);
 app.use("/api/steam/profil", steamProfilRoute);
 app.use("/api/steam/games", steamGamesRoute);
+app.use("/api/steam/summarize", steamsummarizeuser);
 app.use("/api/steam/friends", steamFriendsroute);
 
 // Lancer le serveur
