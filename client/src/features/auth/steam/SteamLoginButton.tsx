@@ -6,7 +6,7 @@ function SteamLoginButton() {
   }
 
   const linkSteam = () => {
-    window.location.href = `http://localhost:5000/api/auth/steam?token=${token}`;
+    window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/steam?token=${token}`;
     console.log(token);
   };
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+
 
 export default function Reset() {
   const [user, setUser] = useState({ email: "" });
@@ -10,7 +10,7 @@ export default function Reset() {
 
     try {
       const res = await fetch(
-        "http://localhost:5000/api/playtrack/forgotPassword",
+        `${import.meta.env.VITE_API_URL}/api/playtrack/forgotPassword`,
         {
           method: "POST",
           headers: { "Content-type": "application/json" },
@@ -39,9 +39,9 @@ export default function Reset() {
           value={user.email}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
-        <Link to="/ResetPasswordpage/:token">
+        
           <button type="submit">Envoyer lien</button>
-        </Link>
+        
         <p>{message}</p>
       </form>
     </>

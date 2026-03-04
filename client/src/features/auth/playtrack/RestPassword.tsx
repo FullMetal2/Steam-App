@@ -1,17 +1,19 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 export default function ResetPassword() {
-  const { token } = useParams();
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
+  const navigate = useNavigate();
   const [form, setForm] = useState({ newPassword: "" });
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDfeault();
+    e.preventDefault();
 
     try {
       const res = await fetch(
-        "http://localhost:5000/api/playtrack/resetPassword",
+        `${import.meta.env.VITE_API_URL}/api/playtrack/resetPassword`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -20,8 +22,9 @@ export default function ResetPassword() {
       );
       const data = await res.json();
       if (res.ok) {
-        setMessage("Mot de passe modifieé !");
+        setMessage("Mot de passe modifié !");
         setForm({ newPassword: "" });
+        setTimeout(() => navigate("/loginPage"), 1500);
       } else {
         setMessage(
           data.message || "Erreur dans la modification du mot de passe"

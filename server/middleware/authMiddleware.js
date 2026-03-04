@@ -21,7 +21,7 @@ export const authMiddleware = async (req, res, next) => {
     const user = await User.findById(decoded.userId);
 
     if (!user) {
-      res.status(404).json({ message: "Utilisateur introuvable" });
+      return res.status(404).json({ message: "Utilisateur introuvable" });
     }
 
     // Injection du user dans la requête
