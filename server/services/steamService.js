@@ -58,3 +58,18 @@ export async function FetchRecentlyPlayedGmaes(steamId) {
     console.error("Erreur lors de la récupération des jeux")
   }
 }
+
+export async function FetchPlayerAchievements(steamId, appid) {
+  try {
+    const key = process.env.STEAM_API_KEY
+    const url = "https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?key=" + key + "&steamid=" + steamId + "&appid=" + appid + "&format=json";
+
+    const response = await fetch(url);
+    const data = await response.json();
+    const achievements = data?.playerstats?.achievements || [];
+    return achievements
+  } catch (error) {
+    console.error("Erreur lors du chargement des succès", appid, error);
+    return [];
+  }
+}
