@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 
 import type { SteamGame } from "../../shared/types";
 
-export default function useGame(): { games: SteamGame[], gameCount: number, error: null | string, isLoading: boolean } {
+export default function useGame(): { games: SteamGame[], gameCount: number, totalCount:number, error: null | string, isLoading: boolean } {
   const [games, setGames] = useState<SteamGame[]>([]);
   const [gameCount, setGameCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -26,6 +27,7 @@ export default function useGame(): { games: SteamGame[], gameCount: number, erro
           
         }
           setGameCount(data.game_count ?? 0)
+          setTotalCount(data.total_count ?? 0)
           setIsLoading(false)
         })
       .catch((err) => {
@@ -35,5 +37,5 @@ export default function useGame(): { games: SteamGame[], gameCount: number, erro
       );
   }, []);
 
-  return { games, gameCount, error, isLoading };
+  return { games, gameCount, totalCount, error, isLoading };
 }

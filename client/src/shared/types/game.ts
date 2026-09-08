@@ -18,3 +18,12 @@ export interface GameDetails extends SteamGame {
   release_date?: string;
   description?: string;
 }
+
+export interface GameAchievements extends SteamGame {
+  percentage: number;
+  lastThree: {
+    apiname:string;
+    achieved: number;
+    unlocktime: number;
+  }[];
+}
