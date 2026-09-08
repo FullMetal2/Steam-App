@@ -10,12 +10,13 @@ import connectDB from "./config/DB.js";
 import steamRoute from "./routes/steam/OauthSteam.js";
 import authPlayTrackRoute from "./routes/playtrack/authPlayTrack.js";
 import steamGamesRoute from "./routes/steam/steam.games.js";
-import steamsummarizeuser from "./routes/steam/steam.summarize.user.js"
+import steamsummarizeuser from "./routes/steam/steam.summarize.user.js";
 import steamProfilRoute from "./routes/steam/steam.profil.js";
 import playtrackProfilSteam from "./routes/playtrack/Playtrack.ProfilSteam.js";
 import steamFriendsroute from "./routes/steam/steam.friends.js";
 import forgotPasswordPlaytrack from "./routes/playtrack/forgotPassword.js";
 import resetPasswordPlaytrack from "./routes/playtrack/resetPassword.js";
+import steamAchievements from "./routes/steam/steamAchievements.js";
 
 // Charger les variables d'environnement
 dotenv.config();
@@ -59,6 +60,7 @@ app.use("/auth/steam", steamRoute);
 app.use("/api/steam/profil", steamProfilRoute);
 app.use("/api/steam/games", steamGamesRoute);
 app.use("/api/steam/summarize", steamsummarizeuser);
+app.use("/api/steam/achievements", steamAchievements);
 app.use("/api/steam/friends", steamFriendsroute);
 
 // Lancer le serveur
