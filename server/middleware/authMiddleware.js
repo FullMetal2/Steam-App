@@ -5,7 +5,8 @@ dotenv.config();
 
 export const authMiddleware = async (req, res, next) => {
   try {
-    const authHeader = req.header("Authorization");
+    const authHeader = req.header.authrization;
+    console.log("Header reçu :", authHeader);
     if (!authHeader) {
       return res.status(401).json({ error: "Token manquant" });
     }
@@ -16,6 +17,7 @@ export const authMiddleware = async (req, res, next) => {
     }
     // Vérifie et décode le token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("Token décodé :", decoded);
 
     // Recherche du user correspondant dans MongoDB
     const user = await User.findById(decoded.userId);
@@ -27,9 +29,9 @@ export const authMiddleware = async (req, res, next) => {
     // Injection du user dans la requête
     req.user = user;
     return next(); // passe à la route suivante
-
   } catch (error) {
     console.error("Erreur middleware auth :", error);
+    console.log("Erreur exacte JWT :", error.message);
     return res.status(401).json({ message: "Token introuvable ou expiré" });
   }
 };
